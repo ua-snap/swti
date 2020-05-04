@@ -21,6 +21,7 @@ daily_index = go.Figure(
     layout=go.Layout(
         template=luts.plotly_template,
         title=dict(text="Alaska Statewide Temperature Index"),
+        yaxis=dict(title=dict(text="Index")),
         xaxis=dict(type="date", range=[start_date, end_date], rangeslider=dict(visible=True)),
     ),
 )
