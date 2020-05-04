@@ -17,7 +17,10 @@ start_date = (datetime.date.today() + datetime.timedelta(days=-90)).strftime("%Y
 end_date = (datetime.date.today() + datetime.timedelta(days=-1)).strftime("%Y-%m-%d")
 
 daily_index = go.Figure(
-    data=[go.Bar(x=di["date"], y=di["daily_index"], marker_color=di["color"])],
+    data=[
+    	go.Bar(x=di["date"], y=di["daily_index"], showlegend=False, marker_color=di["color"]),
+    	go.Scatter(x=di["date"], y=di["daily_index"].rolling(30).mean(), name="30-day average", line=dict(color="#333"))
+    ],
     layout=go.Layout(
         template=luts.plotly_template,
         title=dict(text="Alaska Statewide Temperature Index"),
