@@ -3,6 +3,7 @@
 
 html, body {
 	font-family: 'Cardo';
+	background-image: url('draft.png');
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -18,6 +19,11 @@ nav .navbar-brand img {
 	height: 3rem;
 }
 
+/* Snug this up to the next block */
+section.lead {
+	padding-bottom: 0;
+}
+
 .camera-icon span {
 	display: inline-block;
 	position: relative;
@@ -26,10 +32,6 @@ nav .navbar-brand img {
 }
 .camera-icon span path {
 	fill: #ccc;
-}
-
-.section.graph {
-	border-bottom: 1px solid #eee;
 }
 
 /* Fix heights of charts */
@@ -49,9 +51,4 @@ nav .navbar-brand img {
 .footer img {
 	height: 4em;
 	max-height: 4em;
-}
-
-.footer img.snap {
-	display: relative;
-	bottom: 2rem;
 }

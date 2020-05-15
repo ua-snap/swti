@@ -117,17 +117,8 @@ fig_configs = dict(
     displaylogo=False,
 )
 
-
-# Color maps, from coldblue to grey to hotred
-
+# Colors to reference
 colors = [
-    "#405bfe",
-    "#6566e0",
-    "#7871c2",
-    "#827ca5",
-    "#878787",
-    "#ae7b6a",
-    "#cd6d4e",
-    "#e75a2f",
-    "#ff3d00",
+    "#405bfe", # cold
+    "#ff3d00", # hot
 ]

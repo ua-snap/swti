@@ -41,11 +41,8 @@ def fetch_api_data():
         logging.info("Sending upstream data API request")
         raise NotImplementedError("This isn't implemented yet.")
 
-    # Perform some final data prep here
-    # Assign fancy colors
-    std["color"] = pd.Series(
-        np.digitize(std["daily_index"], [-10, -7.5, -5, -2.5, 0, 2.5, 5, 7.5, 10])
-    ).apply(lambda x: luts.colors[x - 1])
+    # Assign colors for easy display
+    std["color"] = std["daily_index"].apply(lambda x: luts.colors[0] if x <= 0 else luts.colors[1])
 
     return std
 
