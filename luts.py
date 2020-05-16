@@ -84,7 +84,7 @@ axis_configs = {
     "zeroline": False,
     "fixedrange": True,
 }
-xaxis_config = {**axis_configs, **{"tickformat": "%B %-d"}}
+xaxis_config = {**axis_configs, **{"tickformat": "%B %-d, %Y"}}
 plotly_template.layout.xaxis = xaxis_config
 plotly_template.layout.yaxis = axis_configs
 
