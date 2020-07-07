@@ -4,6 +4,7 @@ GUI for app
 """
 
 import os
+import datetime
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_dangerously_set_inner_html as ddsih
@@ -118,6 +119,9 @@ data = wrap_in_section(
     div_classes="content is-size-5",
 )
 
+# Used in copyright date
+current_year = datetime.now().year
+
 footer = html.Footer(
     className="footer has-text-centered",
     children=[
@@ -135,9 +139,10 @@ footer = html.Footer(
             ]
         ),
         ddsih.DangerouslySetInnerHTML(
-            """
+            f"""
 <p>UA is an AA/EO employer and educational institution and prohibits illegal discrimination against any individual.
 <br><a href="https://www.alaska.edu/nondiscrimination/">Statement of Nondiscrimination</a></p>
+<p class="copyright">Copyright &copy; {current_year} University of Alaska Fairbanks.  All rights reserved.</p>
             """
         ),
     ],

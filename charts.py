@@ -18,17 +18,20 @@ end_date = (datetime.date.today() + datetime.timedelta(days=-1)).strftime("%Y-%m
 
 daily_index = go.Figure(
     data=[
-        go.Bar(
+        go.Scatter(
             x=di["date"],
             y=di["daily_index"],
             showlegend=False,
             marker_color=di["color"],
+            mode="markers+lines",
+            fill="tozeroy",
+            line=dict(shape="spline", width=0.5, color="#ccc"),
         ),
         go.Scatter(
             x=di["date"],
-            y=di["daily_index"].rolling(30).mean(),
+            y=di["daily_index"].rolling(30).mean().round(2),
             name="30-day average",
-            line=dict(color="#333"),
+            line=dict(shape="spline", color="#333"),
         ),
     ],
     layout=go.Layout(
@@ -36,7 +39,10 @@ daily_index = go.Figure(
         title=dict(text="Alaska Statewide Temperature Index"),
         yaxis=dict(title=dict(text="Index")),
         xaxis=dict(
-            type="date", range=[start_date, end_date], rangeslider=dict(visible=True)
+            showgrid=True,
+            type="date",
+            range=[start_date, end_date],
+            rangeslider=dict(visible=True),
         ),
     ),
 )
