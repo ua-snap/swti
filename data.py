@@ -18,9 +18,6 @@ import luts
 DASH_LOG_LEVEL = os.getenv("DASH_LOG_LEVEL", default="info")
 logging.basicConfig(level=getattr(logging, DASH_LOG_LEVEL.upper(), logging.INFO))
 
-# API_URL = os.getenv("ACIS_API_URL", default="http://data.rcc-acis.org/StnData?")
-# logging.info("Using ACIS API url %s", API_URL)
-
 MULTI_API_URL = os.getenv("MULTI_ACIS_API_URL", default="http://data.rcc-acis.org/MultiStnData?")
 logging.info("Using ACIS API url %s", MULTI_API_URL)
 
@@ -60,13 +57,6 @@ USW00026528=TALKEETNA
 USW00026529=TANANA
 USW00025339=YAKUTAT
 """
-STATION_IDS = os.getenv("ACIS_STATION_IDS",
-                        default=["USW00026451","USW00027502","USW00026615","USW00026533","USW00025624","USW00026410",
-                                "USW00027406","USW00026422","USW00026411","USW00026425","USW00025323","USW00025507",
-                                "USW00025506","USW00025309","USW00026502","USW00025325","USW00025503","USW00025501",
-                                "USW00026616","USW00026510","USW00026617","USW00026412","USW00026528","USW00026529",
-                                "USW00025339"])
-
 MULTI_STATION_IDS = os.getenv("ACIS_STATION_IDS",
                         default="USW00026451,USW00027502,USW00026615,USW00026533,USW00025624,USW00026410,"
                                 "USW00027406,USW00026422,USW00026411,USW00026425,USW00025323,USW00025507,"
