@@ -4,7 +4,6 @@ Template for SNAP Dash apps.
 """
 import os
 import dash
-from dash.dependencies import Input, Output
 import luts
 from gui import layout
 

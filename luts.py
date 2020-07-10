@@ -4,8 +4,6 @@ Common shared text strings, formatting defaults and lookup tables.
 """
 
 import os
-from datetime import datetime
-import pandas as pd
 import plotly.io as pio
 
 # Core page components

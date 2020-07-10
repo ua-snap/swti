@@ -8,7 +8,6 @@ import urllib.parse
 import os
 import datetime
 import logging
-import numpy as np
 import pandas as pd
 from beaker.cache import CacheManager
 from beaker.util import parse_cache_config_options
@@ -134,7 +133,6 @@ def fetch_api_data():
         )
         query = MULTI_API_URL + query
 
-        # all_std = all station data
         all_std = pd.read_json(query)
         print("----%.2f seconds----" % (time.time() - st))
 
