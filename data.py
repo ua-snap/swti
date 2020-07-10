@@ -17,8 +17,8 @@ import luts
 DASH_LOG_LEVEL = os.getenv("DASH_LOG_LEVEL", default="info")
 logging.basicConfig(level=getattr(logging, DASH_LOG_LEVEL.upper(), logging.INFO))
 
-MULTI_API_URL = os.getenv("MULTI_ACIS_API_URL", default="http://data.rcc-acis.org/MultiStnData?")
-logging.info("Using ACIS API url %s", MULTI_API_URL)
+API_URL = os.getenv("ACIS_API_URL", default="http://data.rcc-acis.org/MultiStnData?")
+logging.info("Using ACIS API url %s", API_URL)
 
 # Set up cache.
 CACHE_EXPIRE = int(os.getenv("DASH_CACHE_EXPIRE", default="43200"))
@@ -56,18 +56,22 @@ USW00026528=TALKEETNA
 USW00026529=TANANA
 USW00025339=YAKUTAT
 """
-MULTI_STATION_IDS = os.getenv("ACIS_STATION_IDS",
+STATION_IDS = os.getenv("ACIS_STATION_IDS",
                         default="USW00026451,USW00027502,USW00026615,USW00026533,USW00025624,USW00026410,"
                                 "USW00027406,USW00026422,USW00026411,USW00026425,USW00025323,USW00025507,"
                                 "USW00025506,USW00025309,USW00026502,USW00025325,USW00025503,USW00025501,"
                                 "USW00026616,USW00026510,USW00026617,USW00026412,USW00026528,USW00026529,"
                                 "USW00025339")
 
-
 def build_daily_index(sd):
+
     # Remove any missing rows.
     sd = sd.dropna()
+
+    # Pull in stations list including weights for generating daily_index
     stations = pd.read_csv("data/StationsList.txt")
+
+    # Daily index DataFrame
     daily_index = pd.DataFrame(columns=["date", "daily_index"])
 
     grouped = sd.groupby(["date"])
@@ -80,6 +84,7 @@ def build_daily_index(sd):
         ).mean()
         count = joined.shape[0]
 
+        # 0.71074 is a "magic" number for generating the daily_index value
         ww = scipy.stats.norm(0, 0.71074).cdf(weighted_departure_sd_daily_mean)
         if ww < 0.5:
             prob = round(0 - (20 * (0.5 - ww)), 3)
@@ -119,49 +124,63 @@ def fetch_api_data():
 
         logging.info("Sending upstream data API request")
 
-        import time
-        st = time.time()
+        # Create a DataFrame to hold all station data
         all_stations = pd.DataFrame()
+
+        # Generate variable query for ACIS API call
         query = urllib.parse.urlencode(
             {
-                "sids": MULTI_STATION_IDS,
+                "sids": STATION_IDS,
                 "sdate": start_date,
                 "edate": end_date,
                 "elems": "1,2",  # Max temp, min temp
                 "output": "json",  # CSV now allowed for multi-day with multi-station
             }
         )
-        query = MULTI_API_URL + query
+
+        # Add ACIS API URL to generated query
+        query = API_URL + query
+
 
         all_std = pd.read_json(query)
-        print("----%.2f seconds----" % (time.time() - st))
 
         # Date Range indexing for 732 days for 2 years worth of data
         # TODO make the amount of periods dynamic
         daterange = pd.date_range(start_date, periods=732, freq='D')
         for row in all_std["data"]:
             # MultiStnData returns metadata in an indeterminate way from the JSON output.
-            # This code searches the metadata list for the USW* station ID.
+            # This code searches the metadata list for the USW* station ID in the metadata.
             matching = [s for s in row['meta']['sids'] if "USW" in s]
-            usw = matching[0].split(" ")[0]
-            std = pd.DataFrame({"date": daterange, "usw": usw})
-            data_df = pd.DataFrame(row['data'], columns=['maxt','mint'])
-            std = pd.concat([std,data_df], axis=1)
 
-            # drop missing temperature values
+            # Pull just the USW value from returned search in matching variable
+            usw = matching[0].split(" ")[0]
+
+            # Create DataFrame for current station data
+            std = pd.DataFrame({"date": daterange, "usw": usw})
+
+            # DataFrame created from JSON data output from API call to ACIS
+            data_df = pd.DataFrame(row['data'], columns=['maxt','mint'])
+
+            # Concatenate dates, USW value, and data (maxt, mint) into a single DataFrame
+            std = pd.concat([std, data_df], axis=1)
+
+            # Drop missing temperature values
             std = std.loc[(std["maxt"] != "M") & (std["mint"] != "M")]
 
+            # Set types for station data columns
             std["date"] = pd.to_datetime(std["date"])
             std["maxt"] = std["maxt"].astype("float")
             std["mint"] = std["mint"].astype("float")
 
+            # Create the average temperature from maximum and minimum temperature
             std = std.assign(current_average=std[["maxt", "mint"]].mean(axis=1))
 
             # Subset for current location
             nd = normals.loc[normals["StationName"] == usw]
 
-            # Make an all-2020 date column to join with normals data properly
-            std = std.assign(key_date=std["date"].apply(lambda dt: dt.replace(year=2020)))
+            # Make a current year date column to join with normals data properly
+            year = (datetime.datetime.today() + datetime.timedelta(days=-1)).year
+            std = std.assign(key_date=std["date"].apply(lambda dt: dt.replace(year=year)))
             jd = std.set_index("key_date").join(nd.set_index("date"))
 
             # Departure standard deviation (SD) =
@@ -171,6 +190,7 @@ def fetch_api_data():
                     3
                 )
             )
+            # Drop StationName
             jd = jd.drop(columns=["StationName"])
             all_stations = all_stations.append(jd)
 
