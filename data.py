@@ -21,12 +21,16 @@ API_URL = os.getenv("ACIS_API_URL", default="http://data.rcc-acis.org/MultiStnDa
 logging.info("Using ACIS API url %s", API_URL)
 
 # Set up cache.
-CACHE_EXPIRE = int(os.getenv("DASH_CACHE_EXPIRE", default="43200"))
+CACHE_EXPIRE = int(os.getenv("DASH_CACHE_EXPIRE", default="5"))
 logging.info("Cache expire set to %s seconds", CACHE_EXPIRE)
-cache_opts = {"cache.type": "memory"}
+cache_opts = {
+    "cache.type": "file",
+    "cache.data_dir": "data/cache",
+    "cache.lock_dir": "data/lock"
+}
 
 cache = CacheManager(**parse_cache_config_options(cache_opts))
-data_cache = cache.get_cache("api_data", type="memory", expire=CACHE_EXPIRE)
+# data_cache = cache.get_cache("statewide_temp_index", type="memory", expire=CACHE_EXPIRE)
 
 """
 List of Station IDs to Location:
@@ -63,8 +67,8 @@ STATION_IDS = os.getenv("ACIS_STATION_IDS",
                                 "USW00026616,USW00026510,USW00026617,USW00026412,USW00026528,USW00026529,"
                                 "USW00025339")
 
-def build_daily_index(sd):
 
+def build_daily_index(sd):
     # Remove any missing rows.
     sd = sd.dropna()
 
@@ -103,6 +107,8 @@ def build_daily_index(sd):
     daily_index["count"] = daily_index["count"].astype("int")
     return daily_index
 
+
+@cache.cache('fetch_api_data', type='file', expire=CACHE_EXPIRE)
 def fetch_api_data():
     """
     Reads data from ACIS API for selected community.
@@ -141,7 +147,6 @@ def fetch_api_data():
         # Add ACIS API URL to generated query
         query = API_URL + query
 
-
         all_std = pd.read_json(query)
 
         # Date Range indexing for 732 days for 2 years worth of data
@@ -159,7 +164,7 @@ def fetch_api_data():
             std = pd.DataFrame({"date": daterange, "usw": usw})
 
             # DataFrame created from JSON data output from API call to ACIS
-            data_df = pd.DataFrame(row['data'], columns=['maxt','mint'])
+            data_df = pd.DataFrame(row['data'], columns=['maxt', 'mint'])
 
             # Concatenate dates, USW value, and data (maxt, mint) into a single DataFrame
             std = pd.concat([std, data_df], axis=1)
@@ -201,9 +206,11 @@ def fetch_api_data():
 
     return daily_index
 
+
 def fetch_data():
     """
     Fetches preprocessed data from cache,
     or triggers an API request + preprocessing.
     """
-    return data_cache.get(key="statewide_temp_index", createfunc=fetch_api_data)
+    # return data_cache.get(key="statewide_temp_index", createfunc=fetch_api_data)
+    return fetch_api_data()
