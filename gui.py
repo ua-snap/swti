@@ -137,6 +137,10 @@ footer = html.Footer(
                     children=[html.Img(src=path_prefix + "assets/ACCAP_wide.svg")],
                 ),
                 html.A(
+                    href="https://uaf-iarc.org/",
+                    children=[html.Img(src=path_prefix + "assets/IARC.svg")],
+                ),
+                html.A(
                     href="https://uaf.edu/uaf/",
                     children=[html.Img(src=path_prefix + "assets/UAF.svg")],
                 ),
