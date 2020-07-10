@@ -129,41 +129,6 @@ def fetch_api_data():
         end_date = (datetime.date.today() + datetime.timedelta(days=-1)).strftime("%Y-%m-%d")
 
         logging.info("Sending upstream data API request")
-        """
-        diff_all_stations = pd.DataFrame()
-        import time
-        st=time.time()
-        for sid in STATION_IDS:
-            logging.info("Processing %s station data", sid)
-            query = urllib.parse.urlencode(
-               {
-                    "sid": sid,
-                    "sdate": start_date,
-                    "edate": end_date,
-                    "elems": "1,2",  # Max temp, min temp
-                    "output": "csv",
-                }
-            )
-            query = API_URL + query
-            std = pd.read_csv(query,
-                              names=["date","maxt","mint"],
-                              parse_dates=True,
-                              skiprows=1
-                              )
-            std = std.loc[(std["maxt"] != "M") & (std["mint"] != "M")]  # drop missing
-
-            std["date"] = pd.to_datetime(std["date"])
-            std["maxt"] = std["maxt"].astype("float")
-            std["mint"] = std["mint"].astype("float")
-            std = std.assign(usw=sid)  # add station
-            std = std.assign(current_average=std[["maxt", "mint"]].mean(axis=1))  # average
-            std = std.assign(key_date=std["date"].apply(lambda dt: dt.replace(year=2020)))
-            astd = std
-            diff_all_stations = diff_all_stations.append(std)
-
-        print("----%.2f seconds----"%(time.time()-st))
-        print("Got to here")
-        """
 
         import time
         st = time.time()
