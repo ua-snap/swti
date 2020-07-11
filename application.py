@@ -5,7 +5,12 @@ Template for SNAP Dash apps.
 import os
 import dash
 import luts
+from dash.dependencies import Input, Output
 from gui import layout
+import datetime
+import plotly.graph_objs as go
+
+from data import fetch_data
 
 app = dash.Dash(__name__)
 
@@ -15,6 +20,56 @@ application = app.server
 app.index_string = luts.index_string
 app.title = luts.title
 app.layout = layout
+
+# We need a fake control in this so we can still have
+# the function use the cache, but redraw when the
+# cache is invalidated (Bob fix this wording)
+@app.callback(
+    Output("daily-index", "figure"),
+    [Input("nonce_input", "value")],
+)
+def update_daily_index(nonce):  # deliberate unused arg
+    """ Generate precipitation scatter chart """
+    # Get date start/end ranges for default window into data.
+    start_date = (datetime.date.today() + datetime.timedelta(days=-90)).strftime(
+        "%Y-%m-%d"
+    )
+    end_date = (datetime.date.today() + datetime.timedelta(days=-1)).strftime(
+        "%Y-%m-%d"
+    )
+
+    di = fetch_data()
+    return go.Figure(
+        data=[
+            go.Scatter(
+                x=di["date"],
+                y=di["daily_index"],
+                showlegend=False,
+                marker_color=di["color"],
+                mode="markers+lines",
+                fill="tozeroy",
+                line=dict(shape="spline", width=0.5, color="#ccc"),
+            ),
+            go.Scatter(
+                x=di["date"],
+                y=di["daily_index"].rolling(30).mean().round(2),
+                name="30-day average",
+                line=dict(shape="spline", color="#333"),
+            ),
+        ],
+        layout=go.Layout(
+            template=luts.plotly_template,
+            title=dict(text="Alaska Statewide Temperature Index"),
+            yaxis=dict(title=dict(text="Index")),
+            xaxis=dict(
+                showgrid=True,
+                type="date",
+                range=[start_date, end_date],
+                rangeslider=dict(visible=True),
+            ),
+        ),
+    )
+
 
 if __name__ == "__main__":
     application.run(debug=os.getenv("FLASK_DEBUG", default=False), port=8080)

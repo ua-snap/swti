@@ -213,4 +213,6 @@ def fetch_data():
     or triggers an API request + preprocessing.
     """
     # return data_cache.get(key="statewide_temp_index", createfunc=fetch_api_data)
+    logging.info("Calling fetch_api_data()")
+
     return fetch_api_data()
