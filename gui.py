@@ -8,7 +8,6 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_dangerously_set_inner_html as ddsih
 import luts
-import charts
 from datetime import datetime
 
 # For hosting
@@ -100,7 +99,8 @@ daily_index = wrap_in_section(
 </div>
     """
         ),
-        dcc.Graph(id="daily-index", figure=charts.daily_index, config=luts.fig_configs),
+        dcc.Graph(id="daily-index", config=luts.fig_configs),
+        dcc.Input(id="nonce_input", type="text", placeholder="nonce"),
     ],
     section_classes="graph",
 )
