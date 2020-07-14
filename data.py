@@ -146,6 +146,9 @@ def fetch_api_data():
 
         all_std = pd.read_json(query)
 
+        # Get the year from yesterday's date (only different on Jan 1st)
+        year = (datetime.datetime.today() + datetime.timedelta(days=-1)).year
+
         # Date Range indexing for 732 days for 2 years worth of data
         # TODO make the amount of periods dynamic
         daterange = pd.date_range(start_date, periods=732, freq="D")
@@ -181,7 +184,6 @@ def fetch_api_data():
             nd = normals.loc[normals["StationName"] == usw]
 
             # Make a current year date column to join with normals data properly
-            year = (datetime.datetime.today() + datetime.timedelta(days=-1)).year
             std = std.assign(
                 key_date=std["date"].apply(lambda dt: dt.replace(year=year))
             )

@@ -3,14 +3,13 @@
 Template for SNAP Dash apps.
 """
 import os
-import dash
-import luts
-from dash.dependencies import Input, Output
-from gui import layout
 import datetime
+import dash
+from dash.dependencies import Input, Output
 import plotly.graph_objs as go
-
+from gui import layout
 from data import fetch_data
+import luts
 
 app = dash.Dash(__name__)
 
