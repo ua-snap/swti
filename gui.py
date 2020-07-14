@@ -4,11 +4,11 @@ GUI for app
 """
 
 import os
+from datetime import datetime
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_dangerously_set_inner_html as ddsih
 import luts
-from datetime import datetime
 
 # For hosting
 path_prefix = os.getenv("REQUESTS_PATHNAME_PREFIX") or "/"
