@@ -21,13 +21,9 @@ API_URL = os.getenv("ACIS_API_URL", default="http://data.rcc-acis.org/MultiStnDa
 logging.info("Using ACIS API url %s", API_URL)
 
 # Set up cache.
-CACHE_EXPIRE = int(os.getenv("DASH_CACHE_EXPIRE", default="5"))
+CACHE_EXPIRE = int(os.getenv("DASH_CACHE_EXPIRE", default="10"))
 logging.info("Cache expire set to %s seconds", CACHE_EXPIRE)
-cache_opts = {
-    "cache.type": "file",
-    "cache.data_dir": "data/cache",
-    "cache.lock_dir": "data/lock"
-}
+cache_opts = {"cache.type": "memory"}
 
 cache = CacheManager(**parse_cache_config_options(cache_opts))
 # data_cache = cache.get_cache("statewide_temp_index", type="memory", expire=CACHE_EXPIRE)
@@ -60,12 +56,14 @@ USW00026528=TALKEETNA
 USW00026529=TANANA
 USW00025339=YAKUTAT
 """
-STATION_IDS = os.getenv("ACIS_STATION_IDS",
-                        default="USW00026451,USW00027502,USW00026615,USW00026533,USW00025624,USW00026410,"
-                                "USW00027406,USW00026422,USW00026411,USW00026425,USW00025323,USW00025507,"
-                                "USW00025506,USW00025309,USW00026502,USW00025325,USW00025503,USW00025501,"
-                                "USW00026616,USW00026510,USW00026617,USW00026412,USW00026528,USW00026529,"
-                                "USW00025339")
+STATION_IDS = os.getenv(
+    "ACIS_STATION_IDS",
+    default="USW00026451,USW00027502,USW00026615,USW00026533,USW00025624,USW00026410,"
+    "USW00027406,USW00026422,USW00026411,USW00026425,USW00025323,USW00025507,"
+    "USW00025506,USW00025309,USW00026502,USW00025325,USW00025503,USW00025501,"
+    "USW00026616,USW00026510,USW00026617,USW00026412,USW00026528,USW00026529,"
+    "USW00025339",
+)
 
 
 def build_daily_index(sd):
@@ -84,7 +82,7 @@ def build_daily_index(sd):
         # Add weights.
         joined = group.set_index("usw").join(stations.set_index("usw"))
         weighted_departure_sd_daily_mean = (
-                joined["depart_sd"] * joined["weight"]
+            joined["depart_sd"] * joined["weight"]
         ).mean()
         count = joined.shape[0]
 
@@ -97,18 +95,13 @@ def build_daily_index(sd):
 
         # Compute daily index.
         daily_index = daily_index.append(
-            {
-                "date": day,
-                "count": count,
-                "daily_index": prob,
-            },
-            ignore_index=True,
+            {"date": day, "count": count, "daily_index": prob,}, ignore_index=True,
         )
     daily_index["count"] = daily_index["count"].astype("int")
     return daily_index
 
 
-@cache.cache('fetch_api_data', type='file', expire=CACHE_EXPIRE)
+@cache.cache("fetch_api_data", type="memory", expire=CACHE_EXPIRE)
 def fetch_api_data():
     """
     Reads data from ACIS API for selected community.
@@ -123,10 +116,14 @@ def fetch_api_data():
         normals["date"] = pd.to_datetime(normals["date"])
 
         # Start date of two years ago
-        start_date = (datetime.date.today() + datetime.timedelta(days=-732)).strftime("%Y-%m-%d")
+        start_date = (datetime.date.today() + datetime.timedelta(days=-732)).strftime(
+            "%Y-%m-%d"
+        )
 
         # End date yesterday
-        end_date = (datetime.date.today() + datetime.timedelta(days=-1)).strftime("%Y-%m-%d")
+        end_date = (datetime.date.today() + datetime.timedelta(days=-1)).strftime(
+            "%Y-%m-%d"
+        )
 
         logging.info("Sending upstream data API request")
 
@@ -151,11 +148,11 @@ def fetch_api_data():
 
         # Date Range indexing for 732 days for 2 years worth of data
         # TODO make the amount of periods dynamic
-        daterange = pd.date_range(start_date, periods=732, freq='D')
+        daterange = pd.date_range(start_date, periods=732, freq="D")
         for row in all_std["data"]:
             # MultiStnData returns metadata in an indeterminate way from the JSON output.
             # This code searches the metadata list for the USW* station ID in the metadata.
-            matching = [s for s in row['meta']['sids'] if "USW" in s]
+            matching = [s for s in row["meta"]["sids"] if "USW" in s]
 
             # Pull just the USW value from returned search in matching variable
             usw = matching[0].split(" ")[0]
@@ -164,7 +161,7 @@ def fetch_api_data():
             std = pd.DataFrame({"date": daterange, "usw": usw})
 
             # DataFrame created from JSON data output from API call to ACIS
-            data_df = pd.DataFrame(row['data'], columns=['maxt', 'mint'])
+            data_df = pd.DataFrame(row["data"], columns=["maxt", "mint"])
 
             # Concatenate dates, USW value, and data (maxt, mint) into a single DataFrame
             std = pd.concat([std, data_df], axis=1)
@@ -185,15 +182,17 @@ def fetch_api_data():
 
             # Make a current year date column to join with normals data properly
             year = (datetime.datetime.today() + datetime.timedelta(days=-1)).year
-            std = std.assign(key_date=std["date"].apply(lambda dt: dt.replace(year=year)))
+            std = std.assign(
+                key_date=std["date"].apply(lambda dt: dt.replace(year=year))
+            )
             jd = std.set_index("key_date").join(nd.set_index("date"))
 
             # Departure standard deviation (SD) =
             # (current average - normal average) / normal SD
             jd = jd.assign(
-                depart_sd=((jd["current_average"] - jd["AveTemp"]) / jd["AveTempSD"]).round(
-                    3
-                )
+                depart_sd=(
+                    (jd["current_average"] - jd["AveTemp"]) / jd["AveTempSD"]
+                ).round(3)
             )
             # Drop StationName
             jd = jd.drop(columns=["StationName"])
@@ -202,7 +201,9 @@ def fetch_api_data():
         daily_index = build_daily_index(all_stations)
 
     # Assign colors for easy display
-    daily_index["color"] = daily_index["daily_index"].apply(lambda x: luts.colors[0] if x <= 0 else luts.colors[1])
+    daily_index["color"] = daily_index["daily_index"].apply(
+        lambda x: luts.colors[0] if x <= 0 else luts.colors[1]
+    )
 
     return daily_index
 
@@ -212,7 +213,6 @@ def fetch_data():
     Fetches preprocessed data from cache,
     or triggers an API request + preprocessing.
     """
-    # return data_cache.get(key="statewide_temp_index", createfunc=fetch_api_data)
     logging.info("Calling fetch_api_data()")
 
     return fetch_api_data()

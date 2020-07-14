@@ -99,8 +99,13 @@ daily_index = wrap_in_section(
 </div>
     """
         ),
-        dcc.Graph(id="daily-index", config=luts.fig_configs),
-        dcc.Input(id="nonce_input", type="text", placeholder="nonce"),
+        dcc.Loading(
+            id="loading-1",
+            children=[dcc.Graph(id="daily-index", config=luts.fig_configs)],
+            type="circle",
+            className="loading-circle",
+        ),
+        dcc.Input(id="cache_check_input", type="text", placeholder="nonce"),
     ],
     section_classes="graph",
 )

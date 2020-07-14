@@ -8,6 +8,7 @@ import luts
 from dash.dependencies import Input, Output
 from gui import layout
 import datetime
+import logging
 import plotly.graph_objs as go
 
 from data import fetch_data
@@ -21,12 +22,11 @@ app.index_string = luts.index_string
 app.title = luts.title
 app.layout = layout
 
-# We need a fake control in this so we can still have
-# the function use the cache, but redraw when the
-# cache is invalidated (Bob fix this wording)
+# Input value added to allow for cache to be refreshed after becoming
+# invalid from the number of seconds indicated in data.py. This is set to
+# 43200 seconds by default.
 @app.callback(
-    Output("daily-index", "figure"),
-    [Input("nonce_input", "value")],
+    Output("daily-index", "figure"), [Input("cache_check_input", "value")],
 )
 def update_daily_index(nonce):  # deliberate unused arg
     """ Generate precipitation scatter chart """
@@ -39,6 +39,7 @@ def update_daily_index(nonce):  # deliberate unused arg
     )
 
     di = fetch_data()
+
     return go.Figure(
         data=[
             go.Scatter(
