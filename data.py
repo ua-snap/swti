@@ -21,7 +21,7 @@ API_URL = os.getenv("ACIS_API_URL", default="http://data.rcc-acis.org/MultiStnDa
 logging.info("Using ACIS API url %s", API_URL)
 
 # Set up cache.
-CACHE_EXPIRE = int(os.getenv("DASH_CACHE_EXPIRE", default="10"))
+CACHE_EXPIRE = int(os.getenv("DASH_CACHE_EXPIRE", default="43200"))
 logging.info("Cache expire set to %s seconds", CACHE_EXPIRE)
 cache_opts = {"cache.type": "memory"}
 
