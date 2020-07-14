@@ -8,7 +8,6 @@ import luts
 from dash.dependencies import Input, Output
 from gui import layout
 import datetime
-import logging
 import plotly.graph_objs as go
 
 from data import fetch_data
