@@ -137,7 +137,7 @@ daily normal temperatures, and covers most of the state.</p>
 taken into account without a large degree of complexity.</p>
 <p>Advantages of a daily temperature index</p>
 <ul>
-    <li>are that Iit is not strongly influenced by occasional missing data points</li>
+    <li>are that it is not strongly influenced by occasional missing data points</li>
     <li>It can distinguish moderate anomalies in statewide data. Additionally, a single number is easy to understand and disseminate.</li>
 </ul>
 <p>Other considerations</p>
