@@ -26,7 +26,6 @@ logging.info("Cache expire set to %s seconds", CACHE_EXPIRE)
 cache_opts = {"cache.type": "memory"}
 
 cache = CacheManager(**parse_cache_config_options(cache_opts))
-# data_cache = cache.get_cache("statewide_temp_index", type="memory", expire=CACHE_EXPIRE)
 
 """
 List of Station IDs to Location:
