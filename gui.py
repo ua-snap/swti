@@ -117,7 +117,7 @@ tool_info = wrap_in_section(
         ddsih.DangerouslySetInnerHTML(
             f"""
 <p>The tool compares reliable observations from a network of stations distributed across the state to baseline
-normals collected and averaged over the three-decade period from 1981 to 2010. Data are collected from the National
+normals collected and averaged over the three-decade period from 1981 to 2010. Data is collected from the National
 Weather Service’s Automated Surface Observing Systems (ASOS). This system includes mean and standard deviations of
 daily normal temperatures, and covers most of the state.</p>
             """
