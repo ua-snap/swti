@@ -99,16 +99,6 @@ temperature anomalies.</li>
 daily_index = wrap_in_section(
     [
         html.H3("Statewide temperature index, last 3 months", className="title is-4"),
-        ddsih.DangerouslySetInnerHTML(
-            """
-<div class="content is-size-5">
-<p>This chart shows today&rsquo;s Alaska temperatures compared to daily normal temperatures 1981&ndash;2010.</p>
-<p>An index value of &plus;X means the day is warmer than X percent of all Above Normal days.</p>
-<p>An index value of &minus;X means the day is colder than X percent of all Below Normal days.</p>
-<p>The black line indicates the 30-day average.</p>
-</div>
-    """
-        ),
         dcc.Loading(
             id="loading-1",
             children=[dcc.Graph(id="daily-index", config=luts.fig_configs)],
