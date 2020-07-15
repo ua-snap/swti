@@ -74,9 +74,19 @@ about = wrap_in_section(
         ddsih.DangerouslySetInnerHTML(
             f"""
 <h1 class="title is-3">Statewide Temperature Index</h1>
-<p class="camera-icon">Click the <span>
-<svg viewBox="0 0 1000 1000" class="icon" height="1em" width="1em"><path d="m500 450c-83 0-150-67-150-150 0-83 67-150 150-150 83 0 150 67 150 150 0 83-67 150-150 150z m400 150h-120c-16 0-34 13-39 29l-31 93c-6 15-23 28-40 28h-340c-16 0-34-13-39-28l-31-94c-6-15-23-28-40-28h-120c-55 0-100-45-100-100v-450c0-55 45-100 100-100h800c55 0 100 45 100 100v450c0 55-45 100-100 100z m-400-550c-138 0-250 112-250 250 0 138 112 250 250 250 138 0 250-112 250-250 0-138-112-250-250-250z m365 380c-19 0-35 16-35 35 0 19 16 35 35 35 19 0 35-16 35-35 0-19-16-35-35-35z" transform="matrix(1 0 0 -1 0 850)"></path></svg>
-</span> icon in the upper&ndash;right of each chart to download it.</p>
+<p>“Has it been cold lately in Alaska?” Answer: “It’s complicated.” Why? Alaska’s complex geography and sparse data
+availability. This tool develops a statewide temperature index, a simple indicator which balances accessible
+information on temperature variation with the complexity of the data.</p>
+<p>The chart below graphs the average temperature across Alaska each day, and compares it to the historical average.
+The line marked at 0 represents the average normal historical temperature. Each dot represents the average
+temperature across Alaska for that day.</p>
+<ul>
+    <li>Red dots indicate “warmer than normal” temperatures. Blue dots indicate “colder than normal.” </li>
+    <li>The distance above or below the “normal” line represents the amount of deviation from normal. A value of +1,
+for instance, means that the day is warmer than 10% of all above-normal days.</li>
+    <li>The black line represents a running 30-day average. This line is less affected by short-term (1-3 day)
+temperature anomalies.</li>
+</ul>
             """
         )
     ],
@@ -110,18 +120,60 @@ daily_index = wrap_in_section(
     section_classes="graph",
 )
 
-data = wrap_in_section(
+
+tool_info = wrap_in_section(
     [
+        html.H3("How the Tool Works", className="title is-4"),
         ddsih.DangerouslySetInnerHTML(
             f"""
-<p>Index based on 1981&ndash;2010 daily normals and standard deviations of 25 stations.  A value of +1 means that the day is warmer than 10&#37; of all Above Normal days.  A value of +8 means that the day is warmer than 80&#37; of all Above Normal days, and so on.  The opposite is true for negative numbers.</p>
-<p>Data provided by the the <a href="http://www.rcc-acis.org">Applied Climate Information System (ACIS)</a>.</p>
-<p>Placeholder, credits & citation.</p>
+<p>The tool compares reliable observations from a network of stations distributed across the state to baseline
+normals collected and averaged over the three-decade period from 1981 to 2010. Data are collected from the National
+Weather Service’s Automated Surface Observing Systems (ASOS). This system includes mean and standard deviations of
+daily normal temperatures, and covers most of the state.</p>
             """
-        )
+        ),
+        html.Figure(
+            children=[
+                html.Img(
+                    height="480px",
+                    width="600px",
+                    src=path_prefix + "assets/asos_station_map.jpg",
+                )
+            ],
+        ),
+        ddsih.DangerouslySetInnerHTML(
+            f"""
+<p>Utilizing this network allows for the geographic and latitudinal variation inherent to the state of Alaska to be
+taken into account without a large degree of complexity.</p>
+<p>Advantages of a daily temperature index</p>
+<ul>
+    <li>are that Iit is not strongly influenced by occasional missing data points</li>
+    <li>It can distinguish moderate anomalies in statewide data. Additionally, a single number is easy to understand and disseminate.</li>
+</ul>
+<p>Other considerations</p>
+<ul>
+    <li>A single Index number can make the data easy to misunderstand, and makes it challenging to quantify extreme temperature variations.</li>
+    <li>Production of the index using the ASOS system also means that the index has the same gaps in its regional coverage as that system. The ASOS system is subject to occasional sensor failures, as well as failures in communication systems. There can be some lag between failure and repair.</li>
+</ul>
+            """
+        ),
     ],
     div_classes="content is-size-5",
 )
+
+
+credits_section = wrap_in_section(
+    [
+        html.H3("Credits", className="title is-4"),
+        ddsih.DangerouslySetInnerHTML(
+            f"""
+<p>This tool was created by the <a href="https://uaf-accap.org/">Alaska Center for Climate Assessment and Policy (ACCAP)</a> and the <a href="https://www.snap.uaf.edu/">Scenarios Network for Alaska and Arctic Planning (SNAP)</a>, climate change research groups at the <a href="https://uaf-iarc.org/">International Arctic Research Center (IARC)</a> at the <a href="https://uaf.edu/uaf/">University of Alaska Fairbanks (UAF)</a>. The Alaska Statewide Temperature Index was developed by Rick Thoman and Brian Brettschneider from data provided by the National Weather Service ASOS system.</p>
+            """
+        ),
+    ],
+    div_classes="content is-size-5",
+)
+
 
 # Used in copyright date
 current_year = datetime.now().year
@@ -156,4 +208,4 @@ footer = html.Footer(
     ],
 )
 
-layout = html.Div(children=[header, about, daily_index, data, footer])
+layout = html.Div(children=[header, about, daily_index, tool_info, credits_section, footer])
