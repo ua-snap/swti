@@ -201,11 +201,6 @@ def fetch_api_data():
 
         daily_index = build_daily_index(all_stations)
 
-    # Assign colors for easy display
-    daily_index["color"] = daily_index["daily_index"].apply(
-        lambda x: luts.colors[0] if x <= 0 else luts.colors[1]
-    )
-
     return daily_index
 
 
