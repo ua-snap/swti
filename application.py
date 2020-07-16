@@ -37,17 +37,37 @@ def update_daily_index(nonce):  # deliberate unused arg
     )
 
     di = fetch_data()
+    above = di[di.daily_index > 0]
+    below = di[di.daily_index <= 0]
 
     return go.Figure(
         data=[
             go.Scatter(
+                x=above["date"],
+                y=above["daily_index"],
+                showlegend=True,
+                marker_color=above["color"],
+                name="Above Average",
+                mode="markers",
+                hovertemplate="<b>Date:</b> %{x} <br><b>Daily Index:</b> %{y}",
+            ),
+            go.Scatter(
+                x=below["date"],
+                y=below["daily_index"],
+                showlegend=True,
+                marker_color=below["color"],
+                name="Below Average",
+                mode="markers",
+                hovertemplate="<b>Date:</b> %{x} <br><b>Daily Index:</b> %{y}",
+            ),
+            go.Scatter(
                 x=di["date"],
                 y=di["daily_index"],
                 showlegend=False,
-                marker_color=di["color"],
-                mode="markers+lines",
+                name="Above Average",
+                mode="lines",
                 fill="tozeroy",
-                hovertemplate="<b>Date:</b> %{x} <br><b>Daily Index:</b> %{y}",
+                hoverinfo="none",
                 line=dict(shape="spline", width=0.5, color="#ccc"),
             ),
             go.Scatter(
