@@ -43,24 +43,6 @@ def update_daily_index(nonce):  # deliberate unused arg
     return go.Figure(
         data=[
             go.Scatter(
-                x=above["date"],
-                y=above["daily_index"],
-                showlegend=True,
-                marker_color=above["color"],
-                name="Above Average",
-                mode="markers",
-                hovertemplate="<b>Date:</b> %{x} <br><b>Daily Index:</b> %{y}",
-            ),
-            go.Scatter(
-                x=below["date"],
-                y=below["daily_index"],
-                showlegend=True,
-                marker_color=below["color"],
-                name="Below Average",
-                mode="markers",
-                hovertemplate="<b>Date:</b> %{x} <br><b>Daily Index:</b> %{y}",
-            ),
-            go.Scatter(
                 x=di["date"],
                 y=di["daily_index"],
                 showlegend=False,
@@ -69,6 +51,24 @@ def update_daily_index(nonce):  # deliberate unused arg
                 fill="tozeroy",
                 hoverinfo="none",
                 line=dict(shape="spline", width=0.5, color="#ccc"),
+            ),
+            go.Scatter(
+                x=above["date"],
+                y=above["daily_index"],
+                showlegend=True,
+                marker_color=luts.colors[1],
+                name="Above Average",
+                mode="markers",
+                hovertemplate="<b>Date:</b> %{x} <br><b>Daily Index:</b> %{y}",
+            ),
+            go.Scatter(
+                x=below["date"],
+                y=below["daily_index"],
+                showlegend=True,
+                marker_color=luts.colors[0],
+                name="Below Average",
+                mode="markers",
+                hovertemplate="<b>Date:</b> %{x} <br><b>Daily Index:</b> %{y}",
             ),
             go.Scatter(
                 x=di["date"],
