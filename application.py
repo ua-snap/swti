@@ -86,7 +86,9 @@ def update_daily_index(nonce):  # deliberate unused arg
                 showgrid=True,
                 type="date",
                 range=[start_date, end_date],
-                rangeslider=dict(range=[di["date"].iloc[0], di["date"].iloc[-1]], visible=True),
+                rangeslider=dict(
+                    range=[di["date"].iloc[0], di["date"].iloc[-1]], visible=True
+                ),
             ),
         ),
     )
