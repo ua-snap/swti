@@ -74,16 +74,16 @@ about = wrap_in_section(
         ddsih.DangerouslySetInnerHTML(
             f"""
 <h1 class="title is-3">Statewide Temperature Index</h1>
-<p>“Has it been cold lately in Alaska?” Answer: “It’s complicated.” Why? Alaska is a very large region with complex 
-geography and sparse data availability. This tool develops a statewide temperature index, a simple indicator which 
-balances accessible information on temperature variation with the complexity of the data.</p> 
+<p>&#34;Has it been cold lately in Alaska?&#34; Answer: &#34;It&#39;s complicated.&#34; Why? Alaska is a very large 
+region with complex geography and sparse data availability. This tool develops a statewide temperature index, 
+a simple indicator which balances accessible information on temperature variation with the complexity of the data.</p> 
 <p>The chart below graphs the average temperature across Alaska each day, and compares it to the historical average.
 The line marked at 0 represents the average normal historical temperature. Each dot represents the average
 temperature across Alaska for that day.</p>
 <ul>
-    <li>Red dots indicate “warmer than normal” temperatures. Blue dots indicate “colder than normal.” </li>
-    <li>The distance above or below the “normal” line represents the amount of deviation from normal. A value of +1,
-for instance, means that the day is warmer than 10% of all above-normal days.</li>
+    <li>Red dots indicate &#34;warmer than normal&#34; temperatures. Blue dots indicate “colder than normal.” </li>
+    <li>The distance above or below the &#34;normal&#34; line represents the amount of deviation from normal. A value 
+of +1, for instance, means that the day is warmer than 10% of all above-normal days.</li> 
     <li>The black line represents a running 30-day average. This line is less affected by short-term (1-3 day)
 temperature anomalies.</li>
     <li><p class="camera-icon">Click the <span>
@@ -202,4 +202,6 @@ footer = html.Footer(
     ],
 )
 
-layout = html.Div(children=[header, about, daily_index, tool_info, credits_section, footer])
+layout = html.Div(
+    children=[header, about, daily_index, tool_info, credits_section, footer]
+)

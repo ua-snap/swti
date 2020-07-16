@@ -34,6 +34,10 @@ section.lead {
 	fill: #ccc;
 }
 
+.content {
+    max-width: 40em;
+}
+
 /* Fix heights of charts */
 #daily-index {
 	height: 600px;
