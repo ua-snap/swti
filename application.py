@@ -47,19 +47,21 @@ def update_daily_index(nonce):  # deliberate unused arg
                 marker_color=di["color"],
                 mode="markers+lines",
                 fill="tozeroy",
+                hovertemplate="<b>Date:</b> %{x} <br><b>Daily Index:</b> %{y}",
                 line=dict(shape="spline", width=0.5, color="#ccc"),
             ),
             go.Scatter(
                 x=di["date"],
                 y=di["daily_index"].rolling(30).mean().round(2),
                 name="30-day average",
+                hovertemplate="<b>Date:</b> %{x} <br><b>30-day Average:</b> %{y}",
                 line=dict(shape="spline", color="#333"),
             ),
         ],
         layout=go.Layout(
             template=luts.plotly_template,
             title=dict(text="Alaska Statewide Temperature Index"),
-            yaxis=dict(title=dict(text="Index")),
+            yaxis=dict(showgrid=True, zeroline=True, title=dict(text="Index")),
             xaxis=dict(
                 showgrid=True,
                 type="date",
