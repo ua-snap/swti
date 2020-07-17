@@ -61,9 +61,16 @@ def update_daily_index(nonce):  # deliberate unused arg
                 line=dict(dash="dash", width=4, color="#d3d3d3"),
             ),
             go.Scatter(
+                x=di["date"],
+                y=(di["daily_index"] * 0) - 3,
+                showlegend=False,
+                mode="lines",
+                hoverinfo="none",
+                line=dict(dash="dash", width=4, color="#d3d3d3"),
+            ),
+            go.Scatter(
                 x=above["date"],
                 y=above["daily_index"],
-                showlegend=True,
                 marker_color=luts.colors[1],
                 name="Above Average",
                 mode="markers",
@@ -72,7 +79,6 @@ def update_daily_index(nonce):  # deliberate unused arg
             go.Scatter(
                 x=below["date"],
                 y=below["daily_index"],
-                showlegend=True,
                 marker_color=luts.colors[0],
                 name="Below Average",
                 mode="markers",
@@ -89,18 +95,6 @@ def update_daily_index(nonce):  # deliberate unused arg
         layout=go.Layout(
             template=luts.plotly_template,
             title=dict(text="Alaska Statewide Temperature Index"),
-            shapes=[
-                dict(
-                    type="line",
-                    yref="y",
-                    y0=-3,
-                    y1=-3,
-                    xref="paper",
-                    x0=0,
-                    x1=1,
-                    line=dict(color="#737373", width=4, dash="dash"),
-                ),
-            ],
             yaxis=dict(showgrid=True, zeroline=True, title=dict(text="Index")),
             xaxis=dict(
                 showgrid=True,
