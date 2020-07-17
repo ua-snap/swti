@@ -73,7 +73,7 @@ about = wrap_in_section(
     [
         ddsih.DangerouslySetInnerHTML(
             f"""
-<h1 class="title is-3">Statewide Temperature Index</h1>
+<h1 class="title is-3">Alaska Statewide Temperature Index</h1>
 <p>&ldquo;Has it been cold lately in Alaska?&rdquo; Answer: &ldquo;It&rsquo;s complicated.&rdquo; Why? Alaska is a very large
 region with complex geography and sparse data availability. This tool develops a statewide temperature index,
 a simple indicator which balances accessible information on temperature variation with the complexity of the data.</p>
@@ -125,7 +125,6 @@ tool_info = wrap_in_section(
 normals collected and averaged over the three-decade period from 1981 to 2010. Data is collected from the National
 Weather Service’s Automated Surface Observing Systems (ASOS). This system includes mean and standard deviations of
 daily normal temperatures, and covers most of the state.</p>
-<p>Map of the ASOS stations used to determine the Statewide Temperature Index.</p>
             """
         ),
         html.Figure(
@@ -134,19 +133,20 @@ daily normal temperatures, and covers most of the state.</p>
                     height="480px",
                     width="600px",
                     src=path_prefix + "assets/asos_station_map.jpg",
-                )
+                ),
+                html.Figcaption("Map of the ASOS stations used to determine the Statewide Temperature Index")
             ],
         ),
         ddsih.DangerouslySetInnerHTML(
             f"""
 <p>Utilizing this network allows for the geographic and latitudinal variation inherent to the state of Alaska to be
 taken into account without a large degree of complexity.</p>
-<p>Advantages of a daily temperature index</p>
+<h5 class="title is-5">Advantages of a daily temperature index</h5>
 <ul>
     <li>It is not strongly influenced by occasional missing data points</li>
     <li>It can distinguish moderate anomalies in statewide data. Additionally, a single number is easy to understand and disseminate.</li>
 </ul>
-<p>Other considerations</p>
+<h5 class="title is-5">Other considerations</h5>
 <ul>
     <li>A single Index number can make the data easy to misunderstand, and makes it challenging to quantify extreme temperature variations.</li>
     <li>Production of the index using the ASOS system also means that the index has the same gaps in its regional coverage as that system. The ASOS system is subject to occasional sensor failures, as well as failures in communication systems. There can be some lag between failure and repair.</li>
