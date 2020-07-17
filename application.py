@@ -81,6 +81,28 @@ def update_daily_index(nonce):  # deliberate unused arg
         layout=go.Layout(
             template=luts.plotly_template,
             title=dict(text="Alaska Statewide Temperature Index"),
+            shapes=[
+                dict(
+                    type="line",
+                    yref="y",
+                    y0=-3,
+                    y1=-3,
+                    xref="paper",
+                    x0=0,
+                    x1=1,
+                    line=dict(color="#939393", width=4, dash="dash"),
+                ),
+                dict(
+                    type="line",
+                    yref="y",
+                    y0=3,
+                    y1=3,
+                    xref="paper",
+                    x0=0,
+                    x1=1,
+                    line=dict(color="#939393", width=4, dash="dash"),
+                ),
+            ],
             yaxis=dict(showgrid=True, zeroline=True, title=dict(text="Index")),
             xaxis=dict(
                 showgrid=True,
