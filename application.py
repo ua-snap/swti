@@ -7,6 +7,7 @@ import datetime
 import dash
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
+import flask
 from gui import layout
 from data import fetch_data
 import luts
@@ -19,6 +20,15 @@ application = app.server
 app.index_string = luts.index_string
 app.title = luts.title
 app.layout = layout
+
+
+@app.server.route("/downloads/<path:path>")
+def serve_static(path):
+    root_dir = os.getcwd()
+    return flask.send_from_directory(
+        os.path.join(root_dir, 'downloads'), path
+    )
+
 
 # Input value added to allow for cache to be refreshed after becoming
 # invalid from the number of seconds indicated in data.py. This is set to

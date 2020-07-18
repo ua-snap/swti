@@ -9,9 +9,19 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_dangerously_set_inner_html as ddsih
 import luts
+from data import fetch_data
 
 # For hosting
 path_prefix = os.getenv("REQUESTS_PATHNAME_PREFIX") or "/"
+
+
+def download_daily_index():
+    # This should add no additional time as we have cached the data
+    # results from the first access of the site.
+    filename = "downloads/statewide_temperature_daily_index.csv"
+    di = fetch_data()
+    di.to_csv(filename, header=True)
+    return html.A("Download Data", className="button is-link", href="downloads/statewide_temperature_daily_index.csv")
 
 
 # Helper functions
@@ -103,7 +113,14 @@ represent extreme temperature variation.</li>
 # Index as a bar chart
 daily_index = wrap_in_section(
     [
-        html.H3("Statewide temperature index, last 3 months", className="title is-4"),
+        html.Div(
+            className="content is-size-5",
+            children=[html.H3("Statewide Temperature Index, last 3 months", id="swti-title", className="title is-4")]
+        ),
+        html.Div(
+            className="buttons is-right",
+            children=[download_daily_index()],
+        ),
         dcc.Loading(
             id="loading-1",
             children=[dcc.Graph(id="daily-index", config=luts.fig_configs)],

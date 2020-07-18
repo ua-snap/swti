@@ -12,7 +12,6 @@ import pandas as pd
 from beaker.cache import CacheManager
 from beaker.util import parse_cache_config_options
 import scipy.stats
-import luts
 
 DASH_LOG_LEVEL = os.getenv("DASH_LOG_LEVEL", default="info")
 logging.basicConfig(level=getattr(logging, DASH_LOG_LEVEL.upper(), logging.INFO))
