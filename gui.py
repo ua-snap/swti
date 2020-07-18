@@ -15,15 +15,6 @@ from data import fetch_data
 path_prefix = os.getenv("REQUESTS_PATHNAME_PREFIX") or "/"
 
 
-def download_daily_index():
-    # This should add no additional time as we have cached the data
-    # results from the first access of the site.
-    filename = "downloads/statewide_temperature_daily_index.csv"
-    di = fetch_data()
-    di.to_csv(filename, header=True)
-    return html.A("Download Data", className="button is-link", href="downloads/statewide_temperature_daily_index.csv")
-
-
 # Helper functions
 def wrap_in_section(content, section_classes="", container_classes="", div_classes=""):
     """
@@ -110,7 +101,7 @@ represent extreme temperature variation.</li>
 )
 
 
-# Index as a bar chart
+# Index as a scatter chart
 daily_index = wrap_in_section(
     [
         html.Div(
@@ -119,7 +110,7 @@ daily_index = wrap_in_section(
         ),
         html.Div(
             className="buttons is-right",
-            children=[download_daily_index()],
+            children=[html.A("Download Data", className="button is-link", href="downloads/statewide_temperature_daily_index.csv")],
         ),
         dcc.Loading(
             id="loading-1",

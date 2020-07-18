@@ -22,6 +22,8 @@ app.title = luts.title
 app.layout = layout
 
 
+# This function alerts the Flask application that we want to
+# access files that are contained within the "downloads" directory.
 @app.server.route("/downloads/<path:path>")
 def serve_static(path):
     root_dir = os.getcwd()
@@ -46,7 +48,9 @@ def update_daily_index(nonce):  # deliberate unused arg
         "%Y-%m-%d"
     )
 
+    filename = "downloads/statewide_temperature_daily_index.csv"
     di = fetch_data()
+    di.to_csv(filename, header=True)
     above = di[di.daily_index > 0]
     below = di[di.daily_index <= 0]
 
