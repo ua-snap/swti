@@ -87,9 +87,9 @@ def build_daily_index(sd):
         # 0.71074 is a "magic" number for generating the daily_index value
         ww = scipy.stats.norm(0, 0.71074).cdf(weighted_departure_sd_daily_mean)
         if ww < 0.5:
-            prob = round(0 - (20 * (0.5 - ww)), 3)
+            prob = round(0 - (20 * (0.5 - ww)), 2)
         if ww >= 0.5:
-            prob = round(20 * (ww - 0.5), 3)
+            prob = round(20 * (ww - 0.5), 2)
 
         # Compute daily index.
         daily_index = daily_index.append(
