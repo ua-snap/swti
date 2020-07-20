@@ -171,6 +171,7 @@ communication systems. There can be some lag between failure and repair.</li>
             """
         ),
     ],
+    section_classes="explainer",
     div_classes="content is-size-5",
 )
 
@@ -184,6 +185,7 @@ credits_section = wrap_in_section(
             """
         ),
     ],
+    section_classes="explainer",
     div_classes="content is-size-5",
 )
 
