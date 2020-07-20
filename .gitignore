@@ -5,3 +5,4 @@
 !.elasticbeanstalk/*.global.yml
 .idea/*
 __pycache__/*
+downloads/statewide_temperature_daily_index.csv
