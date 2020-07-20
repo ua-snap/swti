@@ -14,17 +14,16 @@ h1, h2, h3, h4, h5, h6 {
 	max-width: 40em;
 }
 
-nav.navbar {
-	border-bottom: 1px solid #eee;
-}
-
 nav .navbar-brand img {
 	max-height: 3rem;
 	height: 3rem;
 }
 
-/* Snug this up to the next block */
-section.lead {
+section.lead, section.explainer {
+	background-color: #f8f8f8;
+}
+
+section.graph {
 	padding-bottom: 0;
 }
 
