@@ -29,7 +29,7 @@ app.layout = layout
 def update_daily_index(nonce):  # deliberate unused arg
     """ Generate precipitation scatter chart """
     # Get date start/end ranges for default window into data.
-    start_date = (datetime.date.today() + datetime.timedelta(days=-90)).strftime(
+    start_date = (datetime.date.today() + datetime.timedelta(days=-180)).strftime(
         "%Y-%m-%d"
     )
     end_date = (datetime.date.today() + datetime.timedelta(days=-1)).strftime(

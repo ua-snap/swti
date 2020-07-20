@@ -103,7 +103,7 @@ represent extreme temperature variation.</li>
 # Index as a bar chart
 daily_index = wrap_in_section(
     [
-        html.H3("Statewide temperature index, last 3 months", className="title is-4"),
+        html.H3("Statewide temperature index, last 6 months", className="title is-4"),
         dcc.Loading(
             id="loading-1",
             children=[dcc.Graph(id="daily-index", config=luts.fig_configs)],
