@@ -58,7 +58,7 @@ header = ddsih.DangerouslySetInnerHTML(
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a href="https://uaf-iarc.typeform.com/to/mN7J5cCK#tool=Statewide%20Temperature%20Index" class="button is-primary" target="_blank">
+          <a href="https://uaf-iarc.typeform.com/to/mN7J5cCK#tool=Statewide%20Temperature%20Index" class="button is-link" target="_blank">
             <strong>Feedback</strong>
           </a>
         </div>
