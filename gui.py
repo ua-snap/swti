@@ -110,7 +110,10 @@ box to define the beginning and end dates of the larger chart.</li>
 # Index as a scatter chart
 daily_index = wrap_in_section(
     [
-        html.H3("Statewide temperature index, last 6 months", className="title is-4"),
+        html.Div(
+            className="content is-size-5",
+            children=[html.H3("Statewide temperature index, last 6 months", className="title is-4")]
+        ),
         html.Div(
             className="buttons is-right",
             children=[html.A("Download Data", className="button is-link", href="downloads/statewide_temperature_daily_index.csv")],
