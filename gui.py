@@ -77,7 +77,7 @@ about = wrap_in_section(
 <h1 class="title is-3">Alaska Statewide Temperature Index</h1>
 <p>&ldquo;Has it been cold lately in Alaska?&rdquo; Answer: &ldquo;It&rsquo;s complicated.&rdquo; Why? Alaska is a very large
 region with complex geography and sparse data availability. This tool develops a statewide temperature index,
-a simple indicator which balances accessible information on temperature variation with the complexity of the data.</p>
+a simple indicator which balances accessible information on temperature variation with the complexity of Alaska&rsquo;s climate.</p>
 <p>The chart below graphs the average temperature across Alaska each day, and compares it to the historical average.
 The line marked at 0 represents the average normal historical temperature. Each dot represents the average
 temperature across Alaska for that day.</p>
@@ -157,12 +157,16 @@ taken into account without a large degree of complexity.</p>
 <h5 class="title is-5">Advantages of a daily temperature index</h5>
 <ul>
     <li>It is not strongly influenced by occasional missing data points</li>
-    <li>It can distinguish moderate anomalies in statewide data. Additionally, a single number is easy to understand and disseminate.</li>
+    <li>It is best at distinguishing moderate anomalies in statewide temperatures.</li>
+    <li>A single number is easy to understand and disseminate.</li>
 </ul>
 <h5 class="title is-5">Other considerations</h5>
 <ul>
-    <li>A single Index number can make the data easy to misunderstand, and makes it challenging to quantify extreme temperature variations.</li>
-    <li>Production of the index using the ASOS system also means that the index has the same gaps in its regional coverage as that system. The ASOS system is subject to occasional sensor failures, as well as failures in communication systems. There can be some lag between failure and repair.</li>
+    <li>A single Index number can make the data easy to misunderstand, and makes it challenging to quantify extreme
+temperature variations.</li>
+    <li>Production of the index using the ASOS system also means that the index has the same gaps in its regional
+coverage as that system. The ASOS system is subject to occasional sensor failures, as well as failures in
+communication systems. There can be some lag between failure and repair.</li>
 </ul>
             """
         ),
