@@ -116,7 +116,4 @@ fig_configs = dict(
 )
 
 # Colors to reference
-colors = [
-    "#405bfe",  # cold
-    "#ff3d00",  # hot
-]
+colors = ["#405bfe", "#ff3d00"]  # cold  # hot

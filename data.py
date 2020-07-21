@@ -93,7 +93,7 @@ def build_daily_index(sd):
 
         # Compute daily index.
         daily_index = daily_index.append(
-            {"date": day, "count": count, "daily_index": prob,}, ignore_index=True,
+            {"date": day, "count": count, "daily_index": prob}, ignore_index=True
         )
     daily_index["count"] = daily_index["count"].astype("int")
     return daily_index
