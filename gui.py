@@ -77,9 +77,9 @@ about = wrap_in_section(
 <h1 class="title is-3">Alaska Statewide Temperature Index</h1>
 <p>&ldquo;Has it been cold lately in Alaska?&rdquo; Answer: &ldquo;It&rsquo;s complicated.&rdquo; Why? Alaska is a very large
 region with complex geography and sparse data availability. This tool develops a statewide temperature index,
-a simple indicator which balances accessible information on temperature variation with the complexity of Alaska&rsquo;s climate.</p>
+a simple indicator that balances accessible information on temperature variation with the complexity of Alaska&rsquo;s climate.</p>
 <p>The chart below graphs the average temperature across Alaska each day, and compares it to the historical average.
-The line marked at 0 represents the average normal historical temperature. Each dot represents the average
+The line marked at 0 represents the average historical temperature. Each dot represents the average
 temperature across Alaska for that day.</p>
 <ul>
     <li>Red dots indicate &ldquo;warmer than normal&rdquo; temperatures. Blue dots indicate &ldquo;colder than
@@ -110,19 +110,20 @@ box to define the beginning and end dates of the larger chart.</li>
 # Index as a scatter chart
 daily_index = wrap_in_section(
     [
-        html.Div(
-            className="content is-size-5",
-            children=[html.H3("Statewide temperature index, last 6 months", className="title is-4")]
+        dcc.Loading(
+            id="loading-1",
+            children=[
+                dcc.Graph(
+                    id="daily-index",
+                    config=luts.fig_configs
+                )
+            ],
+            type="circle",
+            className="loading-circle",
         ),
         html.Div(
             className="buttons is-right",
             children=[html.A("Download Data", className="button is-link", href="downloads/statewide_temperature_daily_index.csv")],
-        ),
-        dcc.Loading(
-            id="loading-1",
-            children=[dcc.Graph(id="daily-index", config=luts.fig_configs)],
-            type="circle",
-            className="loading-circle",
         ),
         dcc.Input(id="cache_check_input", type="text", placeholder="nonce"),
     ],
