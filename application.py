@@ -68,7 +68,7 @@ def update_daily_index(nonce):  # deliberate unused arg
             ),
             go.Scatter(
                 x=di["date"],
-                y=(di["daily_index"] * 0) + 3,
+                y=(di["daily_index"] * 0) + 5,
                 name="Typical Range",
                 mode="lines",
                 hoverinfo="none",
@@ -76,7 +76,7 @@ def update_daily_index(nonce):  # deliberate unused arg
             ),
             go.Scatter(
                 x=di["date"],
-                y=(di["daily_index"] * 0) - 3,
+                y=(di["daily_index"] * 0) - 5,
                 showlegend=False,
                 mode="lines",
                 hoverinfo="none",

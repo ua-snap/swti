@@ -90,7 +90,7 @@ than 20% of all above-normal days. And a value of +10 is a record high for that 
 all other above-normal days.</li>
     <li>The black line represents a running 30-day average. This line is less affected by short-term (1-3 day)
 temperature anomalies.</li>
-    <li>The gray dotted lines at 3.41 above and below the historical average line represent typical daily temperature fluctuation. Daily index values within these
+    <li>The gray dotted lines at five above and below the historical average line represent typical daily temperature fluctuation. Daily index values within these
 lines are unexceptional, while values above or below these lines represent extreme temperature variation.</li>
     <li>Below the chart, a diagram displays all of the available index data and what portion of that data is
 displayed in the larger chart. These boundaries are set to the last 6 months by default. Shift the boundaries in this
