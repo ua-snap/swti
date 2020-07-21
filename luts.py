@@ -8,9 +8,8 @@ import plotly.io as pio
 
 # Core page components
 title = "Alaska Statewide Temperature Index"
-# TODO fix this to real URL
-url = "http://snap.uaf.edu/tools/demo"
-preview = "http://snap.uaf.edu/tools/demo/assets/preview.png"
+url = "http://swti.accap.uaf.edu"
+preview = "http://swti.accap.uaf.edu/assets/preview.png"
 description = (
     "See if it's unusually hot or cold relative to historical normals for Alaska."
 )
