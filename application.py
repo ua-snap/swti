@@ -50,7 +50,7 @@ def update_daily_index(nonce):  # deliberate unused arg
 
     filename = "downloads/statewide_temperature_daily_index.csv"
     di = fetch_data()
-    di.to_csv(filename, header=True)
+    di.drop(columns=['count']).rename(columns={'date': 'Date', 'daily_index': 'Daily Index'}).to_csv(filename, index=False, header=True)
     above = di[di.daily_index > 0]
     below = di[di.daily_index <= 0]
 
