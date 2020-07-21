@@ -67,22 +67,6 @@ def update_daily_index(nonce):  # deliberate unused arg
                 line=dict(shape="spline", width=0.5, color="#ccc"),
             ),
             go.Scatter(
-                x=di["date"],
-                y=(di["daily_index"] * 0) + 5,
-                name="Typical Range",
-                mode="lines",
-                hoverinfo="none",
-                line=dict(dash="dot", width=2, color="#a0a0a0"),
-            ),
-            go.Scatter(
-                x=di["date"],
-                y=(di["daily_index"] * 0) - 5,
-                showlegend=False,
-                mode="lines",
-                hoverinfo="none",
-                line=dict(dash="dot", width=2, color="#a0a0a0"),
-            ),
-            go.Scatter(
                 x=above["date"],
                 y=above["daily_index"],
                 marker_color=luts.colors[1],
