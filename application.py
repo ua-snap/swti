@@ -27,17 +27,13 @@ app.layout = layout
 @app.server.route("/downloads/<path:path>")
 def serve_static(path):
     root_dir = os.getcwd()
-    return flask.send_from_directory(
-        os.path.join(root_dir, 'downloads'), path
-    )
+    return flask.send_from_directory(os.path.join(root_dir, "downloads"), path)
 
 
 # Input value added to allow for cache to be refreshed after becoming
 # invalid from the number of seconds indicated in data.py. This is set to
 # 43200 seconds by default.
-@app.callback(
-    Output("daily-index", "figure"), [Input("cache_check_input", "value")],
-)
+@app.callback(Output("daily-index", "figure"), [Input("cache_check_input", "value")])
 def update_daily_index(nonce):  # deliberate unused arg
     """ Generate precipitation scatter chart """
     # Get date start/end ranges for default window into data.
@@ -50,7 +46,9 @@ def update_daily_index(nonce):  # deliberate unused arg
 
     filename = "downloads/statewide_temperature_daily_index.csv"
     di = fetch_data()
-    di.drop(columns=['count']).rename(columns={'date': 'Date', 'daily_index': 'Daily Index'}).to_csv(filename, index=False, header=True)
+    di.drop(columns=["count"]).rename(
+        columns={"date": "Date", "daily_index": "Daily Index"}
+    ).to_csv(filename, index=False, header=True)
     above = di[di.daily_index > 0]
     below = di[di.daily_index <= 0]
 
