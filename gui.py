@@ -78,19 +78,19 @@ about = wrap_in_section(
 <p>&ldquo;Has it been cold lately in Alaska?&rdquo; Answer: &ldquo;It&rsquo;s complicated.&rdquo; Why? Alaska is a very large
 region with complex geography and sparse data availability. This tool develops a statewide temperature index,
 a simple indicator that balances accessible information on temperature variation with the complexity of Alaska&rsquo;s climate.</p>
-<p>The chart below graphs the average temperature across Alaska each day, and compares it to the historical average.
+<p>The chart below graphs the historical average temperature across Alaska each day, and compares it to the historical average.
 The line marked at 0 represents the average historical temperature. Each dot represents the average
 temperature across Alaska for that day.</p>
 <ul>
     <li>Red dots indicate &ldquo;warmer than normal&rdquo; temperatures. Blue dots indicate &ldquo;colder than
 normal.&rdquo; </li>
-    <li>The distance above or below the &ldquo;normal&rdquo; line represents the amount of deviation from normal. A
+    <li>The distance above or below the historical average line at y &equals; 0 represents the amount of deviation from normal. A
 value of +1, for instance, means that the day is warmer than 10% of all above-normal days.  A value of +2 is warmer
 than 20% of all above-normal days. And a value of +10 is a record high for that day, with a temperature higher than
 all other above-normal days.</li>
     <li>The black line represents a running 30-day average. This line is less affected by short-term (1-3 day)
 temperature anomalies.</li>
-    <li>The gray dotted lines at +3 and -3 represent the typical range of the index. Daily index values within these
+    <li>The gray dotted lines at 3.41 above and below the historical average line represent typical daily temperature fluctuation. Daily index values within these
 lines are unexceptional, while values above or below these lines represent extreme temperature variation.</li>
     <li>Below the chart, a diagram displays all of the available index data and what portion of that data is
 displayed in the larger chart. These boundaries are set to the last 6 months by default. Shift the boundaries in this
