@@ -75,7 +75,7 @@ about = wrap_in_section(
         ddsih.DangerouslySetInnerHTML(
             f"""
 <h1 class="title is-3">Alaska Statewide Temperature Index</h1>
-<p>&ldquo;Has it been cold lately in Alaska?&rdquo; Answer: &ldquo;It&rsquo;s complicated.&rdquo; Why? Alaska is a very large
+<p>&ldquo;Has it been warmer or colder lately in Alaska?&rdquo; Answer: &ldquo;It&rsquo;s complicated.&rdquo; Why? Alaska is a very large
 region with complex geography and sparse data availability. This site presents a statewide temperature index,
 a simple indicator that balances accessible information on temperature variation with the complexity of Alaska&rsquo;s climate.</p>
 <p>The graph below shows the historical average temperature across Alaska each day, and compares it to the historical average.
@@ -180,6 +180,7 @@ temperature variations.</li>
 coverage as that system. The ASOS system is subject to occasional sensor failures, as well as failures in
 communication systems. There can be some lag between failure and repair.</li>
 </ul>
+<p>Source code for this project can be found on <a href="https://github.com/ua-snap/swti">Github</a>.</p>
             """
         ),
     ],
