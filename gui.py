@@ -152,7 +152,7 @@ This graph compares reliable observations from a network of stations distributed
                 html.Img(
                     height="480px",
                     width="600px",
-                    src=path_prefix + "assets/asos_station_map.jpg",
+                    src=path_prefix + "assets/asos_station_map.png",
                 ),
                 html.Figcaption(
                     "Map of the ASOS stations used to determine the Statewide Temperature Index"
