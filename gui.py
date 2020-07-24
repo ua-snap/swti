@@ -110,7 +110,7 @@ daily_index = wrap_in_section(
                 html.A(
                     "Download data",
                     className="button is-link",
-                    href="downloads/statewide_temperature_daily_index.csv",
+                    href="statewide-temperature-index/downloads/statewide_temperature_daily_index.csv",
                 )
             ],
         ),
