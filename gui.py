@@ -9,7 +9,6 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_dangerously_set_inner_html as ddsih
 import luts
-from data import fetch_data
 
 # For hosting
 path_prefix = os.getenv("REQUESTS_PATHNAME_PREFIX") or "/"
@@ -207,6 +206,4 @@ footer = html.Footer(
     ],
 )
 
-layout = html.Div(
-    children=[header, about, daily_index, tool_info, footer]
-)
+layout = html.Div(children=[header, about, daily_index, tool_info, footer])
