@@ -63,12 +63,13 @@ section.graph {
 .footer div.wrapper {
 	margin: 2rem auto;
 	display: flex;
+	height: 8rem;
+	max-height: 8rem;
 }
 
 
 .footer img {
-	height: 8rem;
-	max-height: 8rem;
+	min-width: 12.5vw;
 	padding: 0 1rem;
 	display: block;
 	position: relative;
