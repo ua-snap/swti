@@ -8,13 +8,11 @@ import dash
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 import flask
-from gui import layout
+from gui import layout, path_prefix
 from data import fetch_data
 import luts
 
-app = dash.Dash(
-    __name__, requests_pathname_prefix=os.environ["REQUESTS_PATHNAME_PREFIX"]
-)
+app = dash.Dash(__name__, requests_pathname_prefix=path_prefix)
 
 # AWS Elastic Beanstalk looks for application by default,
 # if this variable (application) isn't set you will get a WSGI error.
