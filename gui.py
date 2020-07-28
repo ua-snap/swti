@@ -184,53 +184,27 @@ communication systems. There can be some lag between failure and repair.</li>
 )
 
 
-credits_section = wrap_in_section(
-    [
-        html.H3("Credits", className="title is-4"),
-        ddsih.DangerouslySetInnerHTML(
-            f"""
-<p>This site was created by the <a href="https://uaf-accap.org/">Alaska Center for Climate Assessment and Policy (ACCAP)</a> and the <a href="https://www.snap.uaf.edu/" title="👍">Scenarios Network for Alaska and Arctic Planning (SNAP)</a>, research groups at the <a href="https://uaf-iarc.org/">International Arctic Research Center (IARC)</a> at the <a href="https://uaf.edu/uaf/">University of Alaska Fairbanks (UAF)</a>. The Alaska Statewide Temperature Index was developed by Rick Thoman and Brian Brettschneider from data provided by the National Weather Service ASOS system.</p>
-            """
-        ),
-    ],
-    section_classes="explainer",
-    div_classes="content is-size-5",
-)
-
-
 # Used in copyright date
 current_year = datetime.now().year
 
 footer = html.Footer(
-    className="footer has-text-centered",
+    className="footer",
     children=[
-        html.Div(
-            children=[
-                html.A(
-                    href="https://uaf-accap.org",
-                    className="accap",
-                    children=[html.Img(src=path_prefix + "assets/ACCAP_wide.svg")],
-                ),
-                html.A(
-                    href="https://uaf-iarc.org/",
-                    children=[html.Img(src=path_prefix + "assets/IARC.svg")],
-                ),
-                html.A(
-                    href="https://uaf.edu/uaf/",
-                    children=[html.Img(src=path_prefix + "assets/UAF.svg")],
-                ),
-            ]
-        ),
         ddsih.DangerouslySetInnerHTML(
             f"""
-<p>UA is an AA/EO employer and educational institution and prohibits illegal discrimination against any individual.
-<br><a href="https://www.alaska.edu/nondiscrimination/">Statement of Nondiscrimination</a></p>
-<p class="copyright">Copyright &copy; {current_year} University of Alaska Fairbanks.  All rights reserved.</p>
+<div class="wrapper is-size-6">
+<img src="assets/UAF.svg"/>
+    <div class="wrapped">
+        <p>The Alaska Statewide Temperature Index was developed by Rick Thoman and Brian Brettschneider from data provided by the National Weather Service ASOS system. This website was developed by the <a href="https://uaf-accap.org/">Alaska Center for Climate Assessment and Policy (ACCAP)</a> and the <a href="https://www.snap.uaf.edu/" title="👍">Scenarios Network for Alaska and Arctic Planning (SNAP)</a>, research groups at the <a href="https://uaf-iarc.org/">International Arctic Research Center (IARC)</a> at the <a href="https://uaf.edu/uaf/">University of Alaska Fairbanks (UAF)</a>.</p>
+        <p>Copyright &copy; {current_year} University of Alaska Fairbanks.  All rights reserved.</p>
+        <p>UA is an AA/EO employer and educational institution and prohibits illegal discrimination against any individual.  <a href="https://www.alaska.edu/nondiscrimination/">Statement of Nondiscrimination</a></p>
+    </div>
+</div>
             """
         ),
     ],
 )
 
 layout = html.Div(
-    children=[header, about, daily_index, tool_info, credits_section, footer]
+    children=[header, about, daily_index, tool_info, footer]
 )
