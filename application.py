@@ -70,6 +70,7 @@ def update_daily_index(nonce):  # deliberate unused arg
                 marker_color=luts.colors[1],
                 name="Above Average",
                 mode="markers",
+                cliponaxis=False,
                 hovertemplate="%{x} <br><b>Daily Index:</b> %{y}",
             ),
             go.Scatter(
@@ -78,6 +79,7 @@ def update_daily_index(nonce):  # deliberate unused arg
                 marker_color=luts.colors[0],
                 name="Below Average",
                 mode="markers",
+                cliponaxis=False,
                 hovertemplate="%{x} <br><b>Daily Index:</b> %{y}",
             ),
             go.Scatter(
