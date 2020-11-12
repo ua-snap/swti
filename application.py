@@ -85,8 +85,8 @@ def update_daily_index(nonce):  # deliberate unused arg
             go.Scatter(
                 x=di["date"],
                 y=di["daily_index"].rolling(30).mean().round(2),
-                name="30-day average",
-                hovertemplate="%{x} <br><b>30-day Average:</b> %{y}",
+                name="30 day Average   ",
+                hovertemplate="%{x} <br><b>30 day Average:</b> %{y}",
                 line=dict(shape="spline", color="#333"),
             ),
         ],
