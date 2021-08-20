@@ -13,7 +13,7 @@ preview = "http://accap.uaf.edu/tools/statewide-temperature-index/assets/preview
 description = (
     "See if it's unusually hot or cold relative to historical normals for Alaska."
 )
-gtag_id = os.getenv("GTAG_ID", default="")
+gtag_id = "UA-3978613-20"
 index_string = f"""
 <!DOCTYPE html>
 <html>

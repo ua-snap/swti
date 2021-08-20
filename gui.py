@@ -11,7 +11,7 @@ import dash_dangerously_set_inner_html as ddsih
 import luts
 
 # For hosting
-path_prefix = os.getenv("REQUESTS_PATHNAME_PREFIX") or "/"
+path_prefix = os.getenv("DASH_REQUESTS_PATHNAME_PREFIX") or "/"
 
 
 # Helper functions
