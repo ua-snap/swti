@@ -141,7 +141,7 @@ box to define the beginning and end dates of the larger chart.</li>
         html.H3("How this graph works", className="title is-4"),
         ddsih.DangerouslySetInnerHTML(
             f"""
-This graph compares reliable observations from a network of stations distributed across the state to baseline normals collected and averaged over the three&ndash;decade period from 1981 to 2010. Data is collected from the National Weather Service’s <a href="https://www.weather.gov/asos/">Automated Surface Observing Systems</a> (ASOS). This system includes mean and standard deviations of daily normal temperatures, and covers most of the state.
+This graph compares reliable observations from a network of stations distributed across the state to baseline normals collected and averaged over the three&ndash;decade period from 1991 to 2020. Data is collected from the National Weather Service’s <a href="https://www.weather.gov/asos/">Automated Surface Observing Systems</a> (ASOS). This system includes mean and standard deviations of daily normal temperatures, and covers most of the state.
             """
         ),
         html.Figure(
