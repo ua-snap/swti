@@ -84,8 +84,9 @@ def build_daily_index(sd):
         ).mean()
         count = joined.shape[0]
 
-        # 0.71074 is a "magic" number for generating the daily_index value
-        ww = scipy.stats.norm(0, 0.71074).cdf(weighted_departure_sd_daily_mean)
+        # 0.69423 is a "magic" number for generating the daily_index value
+        # Updated for 2021 per request by Rick Thoman.
+        ww = scipy.stats.norm(0, 0.69423).cdf(weighted_departure_sd_daily_mean)
         if ww < 0.5:
             prob = round(0 - (20 * (0.5 - ww)), 2)
         if ww >= 0.5:
