@@ -5,8 +5,7 @@ GUI for app
 
 import os
 from datetime import datetime
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc, html
 import dash_dangerously_set_inner_html as ddsih
 import luts
 
