@@ -197,6 +197,7 @@ footer = html.Footer(
             <p>The Alaska Statewide Temperature Index was developed by Rick Thoman and Brian Brettschneider from data provided by the National Weather Service ASOS system. This website was developed by the <a href="https://uaf-accap.org/">Alaska Center for Climate Assessment and Policy (ACCAP)</a> and the <a href="https://www.snap.uaf.edu/" title="👍">Scenarios Network for Alaska and Arctic Planning (SNAP)</a>, research groups at the <a href="https://uaf-iarc.org/">International Arctic Research Center (IARC)</a> at the <a href="https://uaf.edu/uaf/">University of Alaska Fairbanks (UAF)</a>.</p>
             <p>Copyright &copy; {current_year} University of Alaska Fairbanks.  All rights reserved.</p>
             <p>UA is an AA/EO employer and educational institution and prohibits illegal discrimination against any individual.  <a href="https://www.alaska.edu/nondiscrimination/">Statement of Nondiscrimination</a></p>
+            <p>UA is committed to providing accessible websites. <a href="https://www.alaska.edu/webaccessibility/">Learn more about UA&rsquo;s notice of web accessibility</a>.  If we can help you access this website&rsquo;s content, <a href="mailto:uaf-snap-data-tools@alaska.edu">email us!</a></p>
         </div>
     </div>
 </div>
