@@ -43,26 +43,8 @@ header = ddsih.DangerouslySetInnerHTML(
     <a class="navbar-item" href="https://uaf-accap.org">
       <img src="{path_prefix}assets/ACCAP_wide.svg">
     </a>
-
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
   </div>
 
-  <div class="navbar-menu">
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a href="https://uaf-iarc.typeform.com/to/mN7J5cCK#tool=Statewide%20Temperature%20Index" class="button is-link" target="_blank">
-            Feedback
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </nav>
 </div>
 """
