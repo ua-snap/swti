@@ -2,12 +2,14 @@
 Responsible for fetching, preprocessing
 and caching community data.
 """
+
 # pylint: disable=C0103, E0401
 
 import urllib.parse
 import os
 import datetime
 import logging
+import requests
 import pandas as pd
 from beaker.cache import CacheManager
 from beaker.util import parse_cache_config_options
@@ -72,11 +74,12 @@ def build_daily_index(sd):
     stations = pd.read_csv("data/StationsList.txt")
 
     # Daily index DataFrame
-    daily_index = pd.DataFrame(columns=["date", "daily_index"])
+    daily_index = pd.DataFrame(columns=["date", "daily_index", "count"])
 
     grouped = sd.groupby(["date"])
     for day, group in grouped:
-
+        if isinstance(day, tuple):
+            day = day[0]
         # Add weights.
         joined = group.set_index("usw").join(stations.set_index("usw"))
         weighted_departure_sd_daily_mean = (
@@ -92,10 +95,9 @@ def build_daily_index(sd):
         if ww >= 0.5:
             prob = round(20 * (ww - 0.5), 2)
 
-        # Compute daily index.
-        daily_index = daily_index.append(
-            {"date": day, "count": count, "daily_index": prob}, ignore_index=True
-        )
+        new_row = pd.DataFrame([{"date": day, "count": count, "daily_index": prob}])
+        daily_index = pd.concat([daily_index, new_row], ignore_index=True)
+
     daily_index["count"] = daily_index["count"].astype("int")
     return daily_index
 
@@ -194,8 +196,8 @@ def fetch_api_data():
             )
             # Drop StationName
             jd = jd.drop(columns=["StationName"])
-            all_stations = all_stations.append(jd)
 
+            all_stations = pd.concat([all_stations, jd], ignore_index=True)
         daily_index = build_daily_index(all_stations)
 
     return daily_index

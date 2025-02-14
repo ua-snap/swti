@@ -35,8 +35,7 @@ def serve_static(path):
 # 43200 seconds by default.
 @app.callback(Output("daily-index", "figure"), [Input("cache_check_input", "value")])
 def update_daily_index(nonce):  # deliberate unused arg
-    """ Generate precipitation scatter chart """
-    # Get date start/end ranges for default window into data.
+    """Generate precipitation scatter chart"""
     start_date = (datetime.date.today() + datetime.timedelta(days=-180)).strftime(
         "%Y-%m-%d"
     )
@@ -97,7 +96,7 @@ def update_daily_index(nonce):  # deliberate unused arg
             xaxis=dict(
                 showgrid=True,
                 type="date",
-                tickformat='%b %-d, %Y',
+                tickformat="%b %-d, %Y",
                 range=[start_date, end_date],
                 rangeslider=dict(
                     range=[di["date"].iloc[0], di["date"].iloc[-1]], visible=True
