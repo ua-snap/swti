@@ -9,7 +9,6 @@ import urllib.parse
 import os
 import datetime
 import logging
-import requests
 import pandas as pd
 from beaker.cache import CacheManager
 from beaker.util import parse_cache_config_options
