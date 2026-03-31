@@ -15,7 +15,7 @@ description = (
 )
 index_string = f"""
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <script async defer 
             data-do-not-track="true" 
