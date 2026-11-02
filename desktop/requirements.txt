@@ -1,0 +1,13 @@
+# Dependencies for the stand-alone macOS desktop build (see desktop/README.md).
+# Only what the app needs at runtime, plus the desktop shell and bundler.
+dash==2.18.2
+plotly==6.0.0
+pandas==2.2.3
+numpy==2.2.3
+Beaker==1.13.0
+Flask==3.0.3
+Werkzeug==3.0.6
+certifi==2025.1.31
+pywebview==5.4
+pyinstaller==6.16.0
+pillow==11.3.0

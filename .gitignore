@@ -5,3 +5,8 @@
 !.elasticbeanstalk/*.global.yml
 .idea/*
 __pycache__/*
+
+# Desktop app build
+.venv-desktop/
+build/
+dist/

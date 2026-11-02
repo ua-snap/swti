@@ -12,7 +12,17 @@ from gui import layout, path_prefix
 from data import fetch_data
 import luts
 
-app = dash.Dash(__name__, requests_pathname_prefix=path_prefix)
+app = dash.Dash(
+    __name__,
+    requests_pathname_prefix=path_prefix,
+    assets_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets"),
+)
+
+# Where the generated CSV download lives. The desktop app points this at a
+# writable per-user directory, since its bundle may be read-only.
+DOWNLOADS_DIR = os.getenv(
+    "SWTI_DOWNLOADS_DIR", default=os.path.join(os.getcwd(), "downloads")
+)
 
 # AWS Elastic Beanstalk looks for application by default,
 # if this variable (application) isn't set you will get a WSGI error.
@@ -26,8 +36,7 @@ app.layout = layout
 # access files that are contained within the "downloads" directory.
 @app.server.route("/downloads/<path:path>")
 def serve_static(path):
-    root_dir = os.getcwd()
-    return flask.send_from_directory(os.path.join(root_dir, "downloads"), path)
+    return flask.send_from_directory(DOWNLOADS_DIR, path)
 
 
 # Input value added to allow for cache to be refreshed after becoming
@@ -43,7 +52,7 @@ def update_daily_index(nonce):  # deliberate unused arg
         "%Y-%m-%d"
     )
 
-    filename = "downloads/statewide_temperature_daily_index.csv"
+    filename = os.path.join(DOWNLOADS_DIR, "statewide_temperature_daily_index.csv")
     di = fetch_data()
     di.drop(columns=["count"]).rename(
         columns={"date": "Date", "daily_index": "Daily Index"}

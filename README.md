@@ -29,6 +29,16 @@ Other env vars that can be set:
  * `ACIS_API_URL` - Has sane default (https://data.rcc-acis.org/StnData?)
  * `DASH_CACHE_EXPIRE` - Has sane default (1 day), override if testing cache behavior.
 
+## macOS desktop app
+
+The app can also be packaged as a stand-alone macOS application:
+
+```
+desktop/build_macos.sh
+```
+
+See [desktop/README.md](desktop/README.md) for details.
+
 ## Deploying to AWS Elastic Beanstalk:
 
 ```

@@ -7,12 +7,12 @@ and caching community data.
 
 import urllib.parse
 import os
+import math
 import datetime
 import logging
 import pandas as pd
 from beaker.cache import CacheManager
 from beaker.util import parse_cache_config_options
-import scipy.stats
 
 DASH_LOG_LEVEL = os.getenv("DASH_LOG_LEVEL", default="info")
 logging.basicConfig(level=getattr(logging, DASH_LOG_LEVEL.upper(), logging.INFO))
@@ -26,6 +26,10 @@ logging.info("Cache expire set to %s seconds", CACHE_EXPIRE)
 cache_opts = {"cache.type": "memory"}
 
 cache = CacheManager(**parse_cache_config_options(cache_opts))
+
+# Source datasets, resolved relative to this file so the app works
+# regardless of the current working directory (e.g. in the desktop build).
+DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 
 """
 List of Station IDs to Location:
@@ -65,12 +69,17 @@ STATION_IDS = os.getenv(
 )
 
 
+def normal_cdf(x, sd):
+    """CDF of a normal distribution with mean 0 and standard deviation sd."""
+    return 0.5 * (1 + math.erf(x / (sd * math.sqrt(2))))
+
+
 def build_daily_index(sd):
     # Remove any missing rows.
     sd = sd.dropna()
 
     # Pull in stations list including weights for generating daily_index
-    stations = pd.read_csv("data/StationsList.txt")
+    stations = pd.read_csv(os.path.join(DATA_DIR, "StationsList.txt"))
 
     # Daily index DataFrame
     daily_index = pd.DataFrame(columns=["date", "daily_index", "count"])
@@ -88,7 +97,7 @@ def build_daily_index(sd):
 
         # 0.69423 is a "magic" number for generating the daily_index value
         # Updated for 2021 per request by Rick Thoman.
-        ww = scipy.stats.norm(0, 0.69423).cdf(weighted_departure_sd_daily_mean)
+        ww = normal_cdf(weighted_departure_sd_daily_mean, 0.69423)
         if ww < 0.5:
             prob = round(0 - (20 * (0.5 - ww)), 2)
         if ww >= 0.5:
@@ -108,11 +117,13 @@ def fetch_api_data():
     """
     if os.getenv("FLASK_DEBUG", default=None):
         logging.info("Using debug mode & local data")
-        daily_index = pd.read_csv("data/test-daily-index.csv", index_col=0)
+        daily_index = pd.read_csv(
+            os.path.join(DATA_DIR, "test-daily-index.csv"), index_col=0
+        )
     else:
 
         # Normals CSV for each station + date
-        normals = pd.read_csv("data/normals.csv", index_col=0)
+        normals = pd.read_csv(os.path.join(DATA_DIR, "normals.csv"), index_col=0)
         normals["date"] = pd.to_datetime(normals["date"])
 
         # Start date of two years ago

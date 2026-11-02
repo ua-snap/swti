@@ -13,16 +13,27 @@ preview = "http://accap.uaf.edu/tools/statewide-temperature-index/assets/preview
 description = (
     "See if it's unusually hot or cold relative to historical normals for Alaska."
 )
-index_string = f"""
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <script async defer 
+
+# True when running as the stand-alone desktop app (set by desktop/swti_desktop.py)
+desktop = os.getenv("SWTI_DESKTOP") == "1"
+
+# Web analytics only apply to the hosted site.
+analytics_script = (
+    ""
+    if desktop
+    else """<script async defer 
             data-do-not-track="true" 
             data-website-id="3904e4d3-ac89-47f3-8220-4576c671acd5"
             data-domains="accap.uaf.edu"
             src="https://umami.snap.uaf.edu/script.js"
-        ></script>        
+        ></script>"""
+)
+
+index_string = f"""
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {analytics_script}        
         {{%metas%}}
         <title>{{%title%}}</title>
         <meta charset="utf-8"/>
